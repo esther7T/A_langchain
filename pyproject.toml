@@ -1,0 +1,29 @@
+[project]
+name = "A_langchain"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "dxt",email = "duxt8@chinaunicom.cn"}
+]
+readme = "README.md"
+requires-python = "<4.0.0,>=3.11"
+dependencies = [
+    "langchain (>=1.2.4,<2.0.0)",
+    "langchain-openai (>=1.1.7,<2.0.0)",
+    "dotenv (>=0.9.9,<0.10.0)",
+    "langserve[all] (>=0.3.3,<0.4.0)",
+    "langchain-community (>=0.4.1,<0.5.0)",
+    "langchain-core (>=1.2.7,<2.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "A_langchain", from = "src"}]
+
+[[tool.poetry.source]]
+name = "tsinghua"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+priority = "primary"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
