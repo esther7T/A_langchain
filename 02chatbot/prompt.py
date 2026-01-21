@@ -1,7 +1,7 @@
 import dotenv
 from langchain_core.messages import HumanMessage
 
-dotenv.load_dotenv("/.env")
+dotenv.load_dotenv("02.env")
 
 from langchain_openai import ChatOpenAI
 

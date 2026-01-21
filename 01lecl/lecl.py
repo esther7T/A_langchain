@@ -1,7 +1,7 @@
 import os
 
 from dotenv import load_dotenv
-load_dotenv("/.env")   # 自动把变量注入 os.environ
+load_dotenv("01.env")   # 自动把变量注入 os.environ
 
 # 定义模型
 from langchain_openai import ChatOpenAI

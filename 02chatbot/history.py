@@ -1,6 +1,6 @@
 import dotenv
 
-dotenv.load_dotenv("/.env")
+dotenv.load_dotenv("02.env")
 
 from langchain_openai import ChatOpenAI
 
@@ -34,19 +34,49 @@ def get_session_history(session_id: str) -> BaseChatMessageHistory:
         store[session_id] = InMemoryChatMessageHistory()
     return store[session_id]
 
-with_message_history = RunnableWithMessageHistory(model,get_session_history)
+# with_message_history = RunnableWithMessageHistory(model,get_session_history)
+#
+# config = {"configurable": {"session_id": "abc2"}}
+#
+# with_message_history.invoke(
+#     [HumanMessage(content="你好，我叫星星")],
+#     config=config
+# )
+#
+# with_message_history.invoke(
+#     [HumanMessage(content="我叫什么")],
+#     config=config
+# )
 
-config = {"configurable": {"session_id": "abc2"}}
 
-with_message_history.invoke(
-    [HumanMessage(content="你好，我叫星星")],
+#
+from langchain_core.prompts import ChatPromptTemplate,MessagesPlaceholder
+
+prompt = ChatPromptTemplate.from_messages(
+    [
+        (
+            "system",
+            "你是一个生活助手，会回答所有的生活类问题。"
+        ),
+        MessagesPlaceholder(variable_name="messages")
+    ]
+)
+
+chain = prompt|model
+
+response = chain.invoke({"messages":[HumanMessage(content="你好呀")]})
+
+with_message_history = RunnableWithMessageHistory(chain,get_session_history)
+
+config = {"configurable":{"session_id":"abc3"}}
+
+response = with_message_history.invoke(
+    [HumanMessage(content="你好，我是星")],
     config=config
 )
 
-with_message_history.invoke(
-    [HumanMessage(content="我叫什么")],
-    config=config
-)
+response.content
+
 
 
 
