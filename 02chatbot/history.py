@@ -49,34 +49,79 @@ def get_session_history(session_id: str) -> BaseChatMessageHistory:
 # )
 
 
-#
+# 添加提示词模板
 from langchain_core.prompts import ChatPromptTemplate,MessagesPlaceholder
 
+# 最简单的提示词模板运行
+# prompt = ChatPromptTemplate.from_messages(
+#     [
+#         (
+#             "system",
+#             "你是一个生活助手，会回答所有的生活类问题。"
+#         ),
+#         MessagesPlaceholder(variable_name="messages")
+#     ]
+# )
+#
+# chain = prompt|model
+#
+# with_message_history = RunnableWithMessageHistory(chain,get_session_history)
+#
+# config = {"configurable":{"session_id":"abc3"}}
+#
+# response = with_message_history.invoke(
+#     [HumanMessage(content="你好，我是星")],
+#     config=config
+# )
+
+# 多参数的提示词模板运行
 prompt = ChatPromptTemplate.from_messages(
     [
         (
-            "system",
-            "你是一个生活助手，会回答所有的生活类问题。"
+            "system","你是一个生活助手，会使用{language}回答用户的问题。"
         ),
         MessagesPlaceholder(variable_name="messages")
     ]
 )
 
-chain = prompt|model
+chain = prompt | model
 
-response = chain.invoke({"messages":[HumanMessage(content="你好呀")]})
+config = {"configurable":{"session_id":"abc4"}}
 
-with_message_history = RunnableWithMessageHistory(chain,get_session_history)
+# # 多参数直接运行
+# response = chain.invoke(
+#     {"messages":[HumanMessage(content="你好，我是星")],"language":"中文"}
+# )
+# response.content
 
-config = {"configurable":{"session_id":"abc3"}}
 
-response = with_message_history.invoke(
-    [HumanMessage(content="你好，我是星")],
-    config=config
+
+# # 多参数封装在历史消息中
+# with_message_history = RunnableWithMessageHistory(chain,get_session_history,input_messages_key='messages')
+#
+# response = with_message_history.invoke(
+#     {"messages":[HumanMessage(content="我是星")],"language":"日文"},
+#     config=config
+# )
+#
+# response.content
+#
+# response = with_message_history.invoke(
+#     {"messages":[HumanMessage(content="我是谁")],"language":"日文"},
+#     config=config
+# )
+#
+# response.content
+
+
+# 管理对话历史
+from langchain_core.messages import SystemMessage,trim_messages
+
+trimmer = trim_messages(
+    max_tokens=65,
+    strategy="last",
+    token_counter
 )
-
-response.content
-
 
 
 

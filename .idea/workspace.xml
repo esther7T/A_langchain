@@ -4,11 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cfb8eef7-8470-404e-87b5-a35217d8b9eb" name="更改" comment="init" />
+    <list default="true" id="cfb8eef7-8470-404e-87b5-a35217d8b9eb" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/02chatbot/history.py" beforeDir="false" afterPath="$PROJECT_DIR$/02chatbot/history.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" show_ignored="true">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -41,22 +49,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.history (1).executor": "Debug",
-    "Python.history.executor": "Debug",
-    "Python.lecl.executor": "Debug",
-    "Python.prompt.executor": "Debug",
-    "Python.runable.executor": "Run",
-    "Python.server.executor": "Debug",
-    "Python.test.executor": "Debug",
-    "Python.use_llm.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "last_opened_file_path": "D:/work_space/python/learn/A_langchain",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.history (1).executor&quot;: &quot;Debug&quot;,
+    &quot;Python.history.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.lecl.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.prompt.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.runable.executor&quot;: &quot;Run&quot;,
+    &quot;Python.server.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.test.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.use_llm.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/work_space/python/learn/A_langchain&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="PyDebuggerOptionsProvider">
     <option name="mySupportGeventDebugging" value="true" />
   </component>
@@ -69,7 +78,7 @@
   <component name="RunManager" selected="Python.history">
     <configuration name="history" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="A_langchain" />
-      <option name="ENV_FILES" value="$PROJECT_DIR$/02chatbot/.env" />
+      <option name="ENV_FILES" value="$PROJECT_DIR$/02chatbot/02.env" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -90,7 +99,7 @@
           <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
         </ENTRIES>
       </EXTENSION>
-      <option name="SCRIPT_NAME" value="D:\work_space\python\learn\A_langchain\02chatbot\history.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/02chatbot/history.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -101,7 +110,7 @@
     </configuration>
     <configuration name="lecl" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="A_langchain" />
-      <option name="ENV_FILES" value="$PROJECT_DIR$/01lecl/.env" />
+      <option name="ENV_FILES" value="$PROJECT_DIR$/01lecl/01.env" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -133,7 +142,7 @@
     </configuration>
     <configuration name="prompt" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="A_langchain" />
-      <option name="ENV_FILES" value="$PROJECT_DIR$/02chatbot/.env" />
+      <option name="ENV_FILES" value="$PROJECT_DIR$/02chatbot/02.env" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -197,7 +206,7 @@
     </configuration>
     <configuration name="server" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="A_langchain" />
-      <option name="ENV_FILES" value="$PROJECT_DIR$/01lecl/.env" />
+      <option name="ENV_FILES" value="$PROJECT_DIR$/01lecl/01.env" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -228,18 +237,18 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.prompt" />
       <item itemvalue="Python.history" />
       <item itemvalue="Python.lecl" />
+      <item itemvalue="Python.prompt" />
       <item itemvalue="Python.runable" />
       <item itemvalue="Python.server" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.history" />
+        <item itemvalue="Python.lecl" />
         <item itemvalue="Python.runable" />
         <item itemvalue="Python.server" />
-        <item itemvalue="Python.lecl" />
       </list>
     </recent_temporary>
   </component>
