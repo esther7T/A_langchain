@@ -9,6 +9,9 @@ model = ChatOpenAI(
     base_url="http://192.168.1.127:5000/v1"
 )
 
+
+# ----------------------------
+
 from langchain_core.messages import HumanMessage,AIMessage
 
 # 最简单的单轮对话，每次提问无关上下文
@@ -24,6 +27,8 @@ from langchain_core.messages import HumanMessage,AIMessage
 # )
 
 
+
+# 手动写一个记录历史的方法，包装在消息历史中
 from langchain_core.chat_history import (BaseChatMessageHistory,InMemoryChatMessageHistory)
 from langchain_core.runnables.history import RunnableWithMessageHistory
 
@@ -48,6 +53,8 @@ def get_session_history(session_id: str) -> BaseChatMessageHistory:
 #     config=config
 # )
 
+
+# ----------------------------
 
 # 添加提示词模板
 from langchain_core.prompts import ChatPromptTemplate,MessagesPlaceholder
@@ -74,6 +81,8 @@ from langchain_core.prompts import ChatPromptTemplate,MessagesPlaceholder
 #     config=config
 # )
 
+
+
 # 多参数的提示词模板运行
 prompt = ChatPromptTemplate.from_messages(
     [
@@ -84,16 +93,16 @@ prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-chain = prompt | model
+# chain = prompt | model
 
-config = {"configurable":{"session_id":"abc4"}}
+# config = {"configurable":{"session_id":"abc4"}}
+
 
 # # 多参数直接运行
 # response = chain.invoke(
 #     {"messages":[HumanMessage(content="你好，我是星")],"language":"中文"}
 # )
 # response.content
-
 
 
 # # 多参数封装在历史消息中
@@ -114,14 +123,103 @@ config = {"configurable":{"session_id":"abc4"}}
 # response.content
 
 
+# ----------------------------
+
+# # ----自定义一个token计数器----
+# import tiktoken
+# encoder = tiktoken.get_encoding("cl100k_base") # 或者"p50k_base"
+# def token_counter(messages)->int:
+#     total = 0
+#     for msg in messages:
+#         total += len(encoder.encode(msg.content))
+#         total += 4
+#     return total
+
+# config = {"configurable": {"session_id": "abc5"}}
+
 # 管理对话历史
 from langchain_core.messages import SystemMessage,trim_messages
+from langchain_core.messages.utils import count_tokens_approximately
 
 trimmer = trim_messages(
     max_tokens=65,
     strategy="last",
-    token_counter
+    token_counter=count_tokens_approximately,
+    include_system = True,
+    allow_partial = False,
+    start_on="human",
 )
+
+messages = [
+    SystemMessage(content="you're a good assistant"),
+    HumanMessage(content="hi! I'm star"),
+    AIMessage(content="hi!"),
+    HumanMessage(content="I like vanilla ice cream"),
+    AIMessage(content="nice"),
+    HumanMessage(content="whats 2 + 2"),
+    AIMessage(content="4"),
+    HumanMessage(content="thanks"),
+    AIMessage(content="no problem!"),
+    HumanMessage(content="having fun?"),
+    AIMessage(content="yes!"),
+]
+
+# trimmer.invoke(messages)
+
+# 在链中使用
+from operator import itemgetter
+from langchain_core.runnables import RunnablePassthrough
+
+chain = (
+    RunnablePassthrough.assign(messages=itemgetter("messages") | trimmer)
+    | prompt
+    | model
+)
+
+# 直接调用链
+# response = chain.invoke(
+#     {
+#         "messages":messages + [HumanMessage(content="what math problem did i ask")],
+#         "language":"中文"
+#     }
+# )
+#
+# response.content
+
+
+# 包装在消息历史中
+with_messages_history = RunnableWithMessageHistory(
+    chain,
+    get_session_history,
+    input_messages_key="messages",
+)
+
+# response = with_messages_history.invoke(
+#     {
+#         "messages":messages + [HumanMessage(content="我问过你什么数学问题")],
+#         "language":"中文",
+#     },
+#     config = config,
+# )
+
+# response.content
+
+
+# ---------------------------------
+
+# 流式处理
+config = {"configurable": {"session_id": "abc6"}}
+for r in with_messages_history.stream(
+    {
+        "messages":[HumanMessage(content="你好呀，你知道酸奶怎么做吗")],
+        "language":"中文"
+    },
+    config = config,
+):
+    print(r.content,end=" | ")
+
+
+
 
 
 
