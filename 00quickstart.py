@@ -37,7 +37,7 @@ SYSTEM_PROMPT="""你是一个生活助手。
 如果用户询问天气，请确定你知道用户所在的城市。无论用户问题的城市在哪，都使用get_user_location来获取用户所在城市。
 """
 # 2、创建工具
-from dataclasses import dataclass
+from pydantic.dataclasses import dataclass
 from langchain.tools import tool,ToolRuntime
 
 @tool
@@ -89,6 +89,7 @@ agent = create_agent(
     model=model,
     system_prompt=SYSTEM_PROMPT,
     tools=[get_user_location,get_weather_for_localtion],
+    context_schema=Context,
     response_format=ResponseFormat,
     checkpointer=checkpointer,
 )
@@ -101,3 +102,5 @@ for chunk in agent.stream(
     context=Context(user_id="1"),
 ):
     print(f"chunk:{chunk}")
+
+
